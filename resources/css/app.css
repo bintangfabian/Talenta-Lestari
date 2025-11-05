@@ -4,7 +4,7 @@
 
 @layer base {
   :root {
-    /* Geosafe Aribaya Village Color Palette */
+    /* Geosafe Aribaya Village Color Palette - Updated with #B31741 */
     --background: 0 0% 100%;
     --foreground: 342 75% 35%;
 
@@ -14,7 +14,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 342 75% 35%;
 
-    --primary: 342 75% 35%;
+    --primary: 342 75% 35%; /* #B31741 converted to HSL */
     --primary-foreground: 0 0% 100%;
 
     --secondary: 342 75% 90%;

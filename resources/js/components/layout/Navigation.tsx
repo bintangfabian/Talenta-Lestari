@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import { Home, Activity, FileText, Bell, Mountain } from 'lucide-react';
+import { Home, Activity, FileText, Bell, Mountain, Shield } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const Navigation = () => {
@@ -23,7 +23,7 @@ const Navigation = () => {
             </span>
           </div>
           
-          <div className="hidden md:flex space-x-8">
+          <div className="hidden md:flex items-center space-x-8">
             {navItems.map((item) => {
               const Icon = item.icon;
               return (
@@ -34,7 +34,7 @@ const Navigation = () => {
                     "flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium transition-colors",
                     location.pathname === item.path
                       ? "bg-primary text-primary-foreground"
-                      : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                      : "text-muted-foreground hover:bg-primary hover:text-primary-foreground"
                   )}
                 >
                   <Icon className="h-4 w-4" />
@@ -42,6 +42,20 @@ const Navigation = () => {
                 </Link>
               );
             })}
+            
+            {/* Admin Login Link */}
+            <Link
+              to="/admin/login"
+              className={cn(
+                "flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium transition-colors border",
+                location.pathname === '/admin/login' || location.pathname === '/admin/dashboard'
+                  ? "bg-primary text-primary-foreground border-primary"
+                  : "text-primary border-primary hover:bg-primary hover:text-primary-foreground"
+              )}
+            >
+              <Shield className="h-4 w-4" />
+              <span>Admin</span>
+            </Link>
           </div>
         </div>
       </div>

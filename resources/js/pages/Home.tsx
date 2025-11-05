@@ -30,7 +30,8 @@ const Home = () => {
           
           <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
             Sistem monitoring tanah longsor real-time untuk melindungi masyarakat 
-            dengan teknologi sensor canggih dan analisis data terintegrasi.
+            <strong className="text-primary"> Desa Aribaya, Banjarnegara</strong> dengan 
+            teknologi sensor canggih dan analisis data terintegrasi.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -125,7 +126,7 @@ const Home = () => {
                   </h3>
                   <p className="text-muted-foreground">
                     Sensor IoT mengumpulkan data kelembaban tanah, curah hujan, 
-                    dan pergeseran tanah secara kontinyu di Desa Aribaya.
+                    dan pergeseran tanah secara kontinyu di <strong>Desa Aribaya, Banjarnegara</strong>.
                   </p>
                 </div>
               </div>
@@ -154,7 +155,7 @@ const Home = () => {
                     Peringatan & Notifikasi
                   </h3>
                   <p className="text-muted-foreground">
-                    Sistem memberikan peringatan otomatis kepada warga Desa Aribaya 
+                    Sistem memberikan peringatan otomatis kepada warga <strong>Desa Aribaya, Banjarnegara</strong> 
                     dan pihak berwenang untuk respons cepat.
                   </p>
                 </div>
@@ -169,6 +170,40 @@ const Home = () => {
                 <div className="absolute -top-4 -right-4 w-16 h-16 bg-status-aman rounded-full flex items-center justify-center">
                   <Activity className="h-8 w-8 text-white" />
                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* About Section */}
+      <section className="py-16 px-4 bg-primary/5">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-3xl font-bold text-foreground mb-8">
+            Tentang Geosafe Aribaya
+          </h2>
+          <div className="bg-card rounded-lg p-8 border border-border">
+            <p className="text-lg text-muted-foreground mb-6">
+              Website ini didedikasikan khusus untuk melayani masyarakat <strong className="text-primary">Desa Aribaya, 
+              Kabupaten Banjarnegara</strong> dalam upaya mitigasi dan monitoring bencana tanah longsor.
+            </p>
+            <p className="text-muted-foreground mb-6">
+              Desa Aribaya yang terletak di daerah perbukitan memiliki potensi risiko tanah longsor, 
+              terutama pada musim hujan. Sistem Geosafe hadir sebagai solusi teknologi untuk memberikan 
+              peringatan dini dan membantu masyarakat dalam mengantisipasi bencana.
+            </p>
+            <div className="grid md:grid-cols-3 gap-6 mt-8">
+              <div className="text-center">
+                <div className="text-2xl font-bold text-primary mb-2">24/7</div>
+                <p className="text-sm text-muted-foreground">Monitoring Berkelanjutan</p>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl font-bold text-primary mb-2">Real-time</div>
+                <p className="text-sm text-muted-foreground">Data Sensor Langsung</p>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl font-bold text-primary mb-2">Komunitas</div>
+                <p className="text-sm text-muted-foreground">Fokus Desa Aribaya</p>
               </div>
             </div>
           </div>
