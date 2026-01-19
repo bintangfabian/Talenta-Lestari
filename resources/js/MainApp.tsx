@@ -3,9 +3,9 @@ import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import Navigation from './components/layout/Navigation';
 import Footer from './components/layout/Footer';
 import Home from './pages/Home';
-import MonitoringSimple from './pages/MonitoringSimple';
-import ReportingSimple from './pages/ReportingSimple';
-import NotificationsSimple from './pages/NotificationsSimple';
+import Monitoring from './pages/Monitoring';
+import Reporting from './pages/Reporting';
+import Notifications from './pages/Notifications';
 import AdminLogin from './pages/AdminLogin';
 import AdminDashboard from './pages/AdminDashboard';
 
@@ -88,9 +88,9 @@ const MainApp: React.FC = () => {
           <Layout>
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/monitoring" element={<MonitoringSimple />} />
-              <Route path="/reporting" element={<ReportingSimple />} />
-              <Route path="/notifications" element={<NotificationsSimple />} />
+              <Route path="/monitoring" element={<Monitoring />} />
+              <Route path="/reporting" element={<Reporting />} />
+              <Route path="/notifications" element={<Notifications />} />
               <Route path="/admin/login" element={<AdminLogin />} />
               <Route path="/admin/dashboard" element={<AdminDashboard />} />
               <Route path="*" element={
