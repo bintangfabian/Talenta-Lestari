@@ -1,4 +1,4 @@
-# Geosafe - Sistem Monitoring Tanah Longsor
+# Talenta Lestari - Sistem Monitoring Tanah Longsor
 
 Sistem monitoring tanah longsor real-time untuk Desa Aribaya dengan teknologi sensor canggih dan analisis data terintegrasi.
 
@@ -56,7 +56,7 @@ Sistem monitoring tanah longsor real-time untuk Desa Aribaya dengan teknologi se
 
 1. Clone repository dan masuk ke direktori project:
 ```bash
-cd Geosafe-V2
+cd Talenta-Lestari-V2
 ```
 
 2. Install dependencies PHP:
@@ -81,7 +81,7 @@ DB_CONNECTION=sqlite
 # DB_CONNECTION=mysql
 # DB_HOST=127.0.0.1
 # DB_PORT=3306
-# DB_DATABASE=geosafe
+# DB_DATABASE=talenta_lestari
 # DB_USERNAME=root
 # DB_PASSWORD=
 ```
@@ -127,7 +127,7 @@ http://localhost:8000
 ## Struktur Project
 
 ```
-Geosafe-V2/
+Talenta-Lestari-V2/
 ├── app/
 │   ├── Http/
 │   │   └── Controllers/

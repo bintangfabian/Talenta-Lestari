@@ -26,6 +26,11 @@ import StatusIndicator from '@/components/monitoring/StatusIndicator';
 import { generateMockData, getCurrentReading } from '@/utils/mockData';
 import { getStatusInfo } from '@/types/monitoring';
 import { SensorData } from '@/types/monitoring';
+import { 
+  getSoilMoistureStatus, 
+  getRainfallStatus, 
+  getLandShiftStatus 
+} from '@/utils/adcConverter';
 
 const Monitoring = () => {
   const [currentData, setCurrentData] = useState<SensorData>(getCurrentReading());
@@ -105,7 +110,14 @@ const Monitoring = () => {
               unit="%"
               icon={<Droplets className="h-5 w-5" />}
               trend={currentData.soilMoisture > 70 ? 'up' : 'stable'}
-              status={currentData.soilMoisture > 80 ? 'critical' : currentData.soilMoisture > 60 ? 'warning' : 'normal'}
+              status={
+                currentData.rawADC?.soilMoisture 
+                  ? (getSoilMoistureStatus(currentData.rawADC.soilMoisture) === 'bahaya' ? 'critical' : 
+                     getSoilMoistureStatus(currentData.rawADC.soilMoisture) === 'waspada' ? 'warning' : 'normal')
+                  : (currentData.soilMoisture < 60 ? 'critical' : currentData.soilMoisture < 80 ? 'warning' : 'normal')
+              }
+              adcValue={currentData.rawADC?.soilMoisture}
+              sensorInfo="Sensor FC-28: ADC tinggi = tanah lembab (persentase tinggi)"
             />
             
             <SensorCard
@@ -114,7 +126,14 @@ const Monitoring = () => {
               unit="mm/h"
               icon={<Cloud className="h-5 w-5" />}
               trend={currentData.raindropCount > 10 ? 'up' : 'stable'}
-              status={currentData.raindropCount > 15 ? 'critical' : currentData.raindropCount > 10 ? 'warning' : 'normal'}
+              status={
+                currentData.rawADC?.rainfall 
+                  ? (getRainfallStatus(currentData.rawADC.rainfall) === 'bahaya' ? 'critical' : 
+                     getRainfallStatus(currentData.rawADC.rainfall) === 'waspada' ? 'warning' : 'normal')
+                  : (currentData.raindropCount > 15 ? 'critical' : currentData.raindropCount > 10 ? 'warning' : 'normal')
+              }
+              adcValue={currentData.rawADC?.rainfall}
+              sensorInfo="Sensor Rintik Hujan: ADC tinggi = cerah, ADC rendah = hujan deras"
             />
             
             <SensorCard
@@ -123,7 +142,14 @@ const Monitoring = () => {
               unit="mm"
               icon={<Mountain className="h-5 w-5" />}
               trend={currentData.landShift > 3 ? 'up' : 'stable'}
-              status={currentData.landShift > 5 ? 'critical' : currentData.landShift > 3 ? 'warning' : 'normal'}
+              status={
+                currentData.rawADC?.landShift 
+                  ? (getLandShiftStatus(currentData.rawADC.landShift) === 'bahaya' ? 'critical' : 
+                     getLandShiftStatus(currentData.rawADC.landShift) === 'waspada' ? 'warning' : 'normal')
+                  : (currentData.landShift > 5 ? 'critical' : currentData.landShift > 3 ? 'warning' : 'normal')
+              }
+              adcValue={currentData.rawADC?.landShift}
+              sensorInfo="Potensiometer Geser 10kΩ (60mm): ADC proporsional dengan panjang pergeseran"
             />
           </div>
         </div>
@@ -218,59 +244,80 @@ const Monitoring = () => {
         <Card className="bg-card border-border">
           <CardHeader>
             <CardTitle>Ambang Batas Peringatan</CardTitle>
+            <p className="text-sm text-muted-foreground mt-2">
+              Threshold berdasarkan nilai ADC dan nilai yang dikonversi
+            </p>
           </CardHeader>
           <CardContent>
             <div className="grid md:grid-cols-3 gap-6">
-              <div className="space-y-2">
-                <h4 className="font-medium text-foreground">Kelembaban Tanah</h4>
-                <div className="space-y-1 text-sm">
-                  <div className="flex justify-between">
-                    <span>Normal:</span>
-                    <span className="text-status-aman">{'< 60%'}</span>
+              <div className="space-y-3">
+                <h4 className="font-medium text-foreground flex items-center space-x-2">
+                  <Droplets className="h-4 w-4" />
+                  <span>Kelembaban Tanah (FC-28)</span>
+                </h4>
+                <div className="space-y-2 text-sm">
+                  <div className="p-2 bg-status-aman/10 rounded border-l-2 border-status-aman">
+                    <div className="font-medium text-status-aman mb-1">Aman</div>
+                    <div className="text-xs text-muted-foreground">ADC: ≥ 476</div>
+                    <div className="text-xs text-muted-foreground">Nilai: ≥ 46.5%</div>
                   </div>
-                  <div className="flex justify-between">
-                    <span>Waspada:</span>
-                    <span className="text-status-waspada">60-80%</span>
+                  <div className="p-2 bg-status-waspada/10 rounded border-l-2 border-status-waspada">
+                    <div className="font-medium text-status-waspada mb-1">Waspada</div>
+                    <div className="text-xs text-muted-foreground">ADC: 340 - 475</div>
+                    <div className="text-xs text-muted-foreground">Nilai: 33.2% - 46.4%</div>
                   </div>
-                  <div className="flex justify-between">
-                    <span>Bahaya:</span>
-                    <span className="text-status-bahaya">{'> 80%'}</span>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="space-y-2">
-                <h4 className="font-medium text-foreground">Curah Hujan</h4>
-                <div className="space-y-1 text-sm">
-                  <div className="flex justify-between">
-                    <span>Normal:</span>
-                    <span className="text-status-aman">{'< 10 mm/h'}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Waspada:</span>
-                    <span className="text-status-waspada">10-15 mm/h</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Bahaya:</span>
-                    <span className="text-status-bahaya">{'> 15 mm/h'}</span>
+                  <div className="p-2 bg-status-bahaya/10 rounded border-l-2 border-status-bahaya">
+                    <div className="font-medium text-status-bahaya mb-1">Bahaya</div>
+                    <div className="text-xs text-muted-foreground">ADC: ≤ 339</div>
+                    <div className="text-xs text-muted-foreground">Nilai: ≤ 33.1%</div>
                   </div>
                 </div>
               </div>
               
-              <div className="space-y-2">
-                <h4 className="font-medium text-foreground">Pergeseran Tanah</h4>
-                <div className="space-y-1 text-sm">
-                  <div className="flex justify-between">
-                    <span>Normal:</span>
-                    <span className="text-status-aman">{'< 3 mm'}</span>
+              <div className="space-y-3">
+                <h4 className="font-medium text-foreground flex items-center space-x-2">
+                  <Cloud className="h-4 w-4" />
+                  <span>Curah Hujan</span>
+                </h4>
+                <div className="space-y-2 text-sm">
+                  <div className="p-2 bg-status-aman/10 rounded border-l-2 border-status-aman">
+                    <div className="font-medium text-status-aman mb-1">Aman (Cerah)</div>
+                    <div className="text-xs text-muted-foreground">ADC: &gt; 900</div>
+                    <div className="text-xs text-muted-foreground">Nilai: 0 - 5 mm/h</div>
                   </div>
-                  <div className="flex justify-between">
-                    <span>Waspada:</span>
-                    <span className="text-status-waspada">3-5 mm</span>
+                  <div className="p-2 bg-status-waspada/10 rounded border-l-2 border-status-waspada">
+                    <div className="font-medium text-status-waspada mb-1">Waspada (Gerimis)</div>
+                    <div className="text-xs text-muted-foreground">ADC: 600 - 900</div>
+                    <div className="text-xs text-muted-foreground">Nilai: 5 - 15 mm/h</div>
                   </div>
-                  <div className="flex justify-between">
-                    <span>Bahaya:</span>
-                    <span className="text-status-bahaya">{'> 5 mm'}</span>
+                  <div className="p-2 bg-status-bahaya/10 rounded border-l-2 border-status-bahaya">
+                    <div className="font-medium text-status-bahaya mb-1">Bahaya (Deras)</div>
+                    <div className="text-xs text-muted-foreground">ADC: &lt; 600</div>
+                    <div className="text-xs text-muted-foreground">Nilai: &gt; 15 mm/h</div>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="space-y-3">
+                <h4 className="font-medium text-foreground flex items-center space-x-2">
+                  <Mountain className="h-4 w-4" />
+                  <span>Pergeseran Tanah (Potensiometer)</span>
+                </h4>
+                <div className="space-y-2 text-sm">
+                  <div className="p-2 bg-status-aman/10 rounded border-l-2 border-status-aman">
+                    <div className="font-medium text-status-aman mb-1">Aman</div>
+                    <div className="text-xs text-muted-foreground">ADC: ≤ 676</div>
+                    <div className="text-xs text-muted-foreground">Nilai: ≤ 40 mm (≤ 4 cm)</div>
+                  </div>
+                  <div className="p-2 bg-status-waspada/10 rounded border-l-2 border-status-waspada">
+                    <div className="font-medium text-status-waspada mb-1">Waspada</div>
+                    <div className="text-xs text-muted-foreground">ADC: 677 - 852</div>
+                    <div className="text-xs text-muted-foreground">Nilai: 40 - 50 mm (4 - 5 cm)</div>
+                  </div>
+                  <div className="p-2 bg-status-bahaya/10 rounded border-l-2 border-status-bahaya">
+                    <div className="font-medium text-status-bahaya mb-1">Bahaya</div>
+                    <div className="text-xs text-muted-foreground">ADC: ≥ 853</div>
+                    <div className="text-xs text-muted-foreground">Nilai: ≥ 50 mm (≥ 5 cm)</div>
                   </div>
                 </div>
               </div>

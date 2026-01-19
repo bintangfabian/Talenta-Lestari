@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
         // Seed sensor data
         $this->call([
             SensorDataSeeder::class,
+            AdminUserSeeder::class,
         ]);
     }
 }

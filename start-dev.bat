@@ -1,15 +1,15 @@
 @echo off
-REM Geosafe Development Server Launcher (Windows)
+REM Talenta Lestari Development Server Launcher (Windows)
 
 echo ╔══════════════════════════════════════════════════════════╗
-echo ║         Geosafe Development Server Launcher              ║
+echo ║      Talenta Lestari Development Server Launcher          ║
 echo ╚══════════════════════════════════════════════════════════╝
 echo.
 
 REM Check if we're in the correct directory
 if not exist "artisan" (
     echo ❌ Error: artisan file not found!
-    echo Please run this script from the Geosafe-V2 directory
+    echo Please run this script from the Talenta-Lestari-V2 directory
     pause
     exit /b 1
 )

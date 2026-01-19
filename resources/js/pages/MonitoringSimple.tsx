@@ -11,6 +11,7 @@ import {
   Filler
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
+import { AlertTriangle, TrendingUp, BarChart3, Calendar, Pause, Play } from 'lucide-react';
 
 ChartJS.register(
   CategoryScale,
@@ -23,19 +24,32 @@ ChartJS.register(
   Filler
 );
 
-const MonitoringSimple = () => {
-  const [currentData, setCurrentData] = useState({
+interface CurrentData {
+  soilMoisture: number;
+  rainfall: number;
+  landShift: number;
+  status: string;
+}
+
+interface ChartData {
+  soilMoistureHistory: number[];
+  rainfallHistory: number[];
+  landShiftHistory: number[];
+}
+
+const MonitoringSimple: React.FC = () => {
+  const [currentData, setCurrentData] = useState<CurrentData>({
     soilMoisture: 62.4,
     rainfall: 12.2,
     landShift: 1.0,
     status: 'Waspada'
   });
   
-  const [isLive, setIsLive] = useState(true);
-  const [lastUpdate, setLastUpdate] = useState(new Date());
+  const [isLive, setIsLive] = useState<boolean>(true);
+  const [lastUpdate, setLastUpdate] = useState<Date>(new Date());
   
   // Data untuk grafik (24 jam terakhir)
-  const [chartData, setChartData] = useState({
+  const [chartData, setChartData] = useState<ChartData>({
     soilMoistureHistory: Array(24).fill(0).map(() => Math.random() * 40 + 40),
     rainfallHistory: Array(24).fill(0).map(() => Math.random() * 15 + 5),
     landShiftHistory: Array(24).fill(0).map(() => Math.random() * 4 + 1)
@@ -74,13 +88,13 @@ const MonitoringSimple = () => {
     return () => clearInterval(interval);
   }, [isLive]);
   
-  const getStatusColor = (status) => {
+  const getStatusColor = (status: string): string => {
     if (status === 'Aman') return '#22c55e';
     if (status === 'Waspada') return '#eab308';
     return '#ef4444';
   };
   
-  const getStatusBgColor = (status) => {
+  const getStatusBgColor = (status: string): string => {
     if (status === 'Aman') return '#dcfce7';
     if (status === 'Waspada') return '#fef3c7';
     return '#fee2e2';
@@ -236,8 +250,8 @@ const MonitoringSimple = () => {
           <h1 style={{ fontSize: '1.75rem', fontWeight: 'bold', color: '#B31741', marginBottom: '0.5rem' }}>
             Monitoring Real-time
           </h1>
-          <p style={{ color: '#6b7280', fontSize: '0.9375rem' }}>
-            📅 Terakhir diperbarui: {lastUpdate.toLocaleDateString('id-ID')} {lastUpdate.toLocaleTimeString('id-ID')}
+          <p style={{ color: '#6b7280', fontSize: '0.9375rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <Calendar className="h-4 w-4" /> Terakhir diperbarui: {lastUpdate.toLocaleDateString('id-ID')} {lastUpdate.toLocaleTimeString('id-ID')}
           </p>
         </div>
         
@@ -278,7 +292,15 @@ const MonitoringSimple = () => {
               color: '#374151'
             }}
           >
-            {isLive ? '⏸ Pause' : '▶ Resume'}
+            {isLive ? (
+              <>
+                <Pause className="h-4 w-4" style={{ marginRight: '0.25rem' }} /> Pause
+              </>
+            ) : (
+              <>
+                <Play className="h-4 w-4" style={{ marginRight: '0.25rem' }} /> Resume
+              </>
+            )}
           </button>
         </div>
       </div>
@@ -307,7 +329,7 @@ const MonitoringSimple = () => {
             borderRadius: '0.5rem',
             marginBottom: '0.75rem'
           }}>
-            <span style={{ fontSize: '1.5rem', marginRight: '0.5rem' }}>⚠️</span>
+            <AlertTriangle className="h-6 w-6" style={{ marginRight: '0.5rem', color: 'white' }} />
             <span style={{ fontSize: '1.5rem', fontWeight: 'bold', color: 'white' }}>
               {currentData.status.toUpperCase()}
             </span>
@@ -412,7 +434,7 @@ const MonitoringSimple = () => {
           boxShadow: '0 1px 3px rgba(0,0,0,0.05)'
         }}>
           <h3 style={{ fontSize: '1rem', fontWeight: '600', color: '#B31741', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <span>📈</span> Kelembaban & Curah Hujan (24 Jam)
+            <TrendingUp className="h-5 w-5" /> Kelembaban & Curah Hujan (24 Jam)
           </h3>
           <div style={{ height: '300px' }}>
             <Line data={moistureRainfallData} options={moistureRainfallChartOptions} />
@@ -428,7 +450,7 @@ const MonitoringSimple = () => {
           boxShadow: '0 1px 3px rgba(0,0,0,0.05)'
         }}>
           <h3 style={{ fontSize: '1rem', fontWeight: '600', color: '#B31741', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <span>📊</span> Pergeseran Tanah (24 Jam)
+            <BarChart3 className="h-5 w-5" /> Pergeseran Tanah (24 Jam)
           </h3>
           <div style={{ height: '300px' }}>
             <Line data={landShiftData} options={landShiftChartOptions} />

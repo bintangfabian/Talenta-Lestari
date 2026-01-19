@@ -1,8 +1,31 @@
 import React, { useState } from 'react';
+import { BarChart3, FileText, CheckCircle2, AlertTriangle, AlertCircle, Download } from 'lucide-react';
 
-const ReportingSimple = () => {
+interface ReportData {
+  id: number;
+  date: Date;
+  soilMoisture: number;
+  rainfall: number;
+  landShift: number;
+  status: string;
+}
+
+interface StatusCount {
+  total: number;
+  aman: number;
+  waspada: number;
+  bahaya: number;
+}
+
+interface Averages {
+  soilMoisture: string;
+  rainfall: string;
+  landShift: string;
+}
+
+const ReportingSimple: React.FC = () => {
   // Generate mock data untuk 30 hari terakhir
-  const generateData = () => {
+  const generateData = (): ReportData[] => {
     const data = [];
     const now = new Date();
     
@@ -32,15 +55,15 @@ const ReportingSimple = () => {
     return data;
   };
   
-  const [data] = useState(generateData());
-  const [filter, setFilter] = useState('all');
-  const [dateRange, setDateRange] = useState('30');
+  const [data] = useState<ReportData[]>(generateData());
+  const [filter, setFilter] = useState<string>('all');
+  const [dateRange, setDateRange] = useState<string>('30');
   
   const filteredData = filter === 'all' 
     ? data 
     : data.filter(d => d.status === filter);
   
-  const statusCount = {
+  const statusCount: StatusCount = {
     total: data.length,
     aman: data.filter(d => d.status === 'Aman').length,
     waspada: data.filter(d => d.status === 'Waspada').length,
@@ -48,13 +71,13 @@ const ReportingSimple = () => {
   };
   
   // Calculate averages
-  const averages = {
+  const averages: Averages = {
     soilMoisture: (data.reduce((sum, d) => sum + d.soilMoisture, 0) / data.length).toFixed(1),
     rainfall: (data.reduce((sum, d) => sum + d.rainfall, 0) / data.length).toFixed(1),
     landShift: (data.reduce((sum, d) => sum + d.landShift, 0) / data.length).toFixed(1)
   };
   
-  const exportCSV = () => {
+  const exportCSV = (): void => {
     const csv = [
       ['Tanggal', 'Kelembaban Tanah (%)', 'Curah Hujan (mm/h)', 'Pergeseran Tanah (mm)', 'Status'],
       ...filteredData.map(row => [
@@ -70,17 +93,17 @@ const ReportingSimple = () => {
     const url = window.URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `laporan-geosafe-${new Date().toISOString().split('T')[0]}.csv`;
+    a.download = `laporan-talenta-lestari-${new Date().toISOString().split('T')[0]}.csv`;
     a.click();
   };
   
-  const getStatusColor = (status) => {
+  const getStatusColor = (status: string): string => {
     if (status === 'Aman') return '#22c55e';
     if (status === 'Waspada') return '#eab308';
     return '#ef4444';
   };
   
-  const getStatusBgColor = (status) => {
+  const getStatusBgColor = (status: string): string => {
     if (status === 'Aman') return '#dcfce7';
     if (status === 'Waspada') return '#fef3c7';
     return '#fee2e2';
@@ -117,7 +140,7 @@ const ReportingSimple = () => {
               boxShadow: '0 2px 4px rgba(179, 23, 65, 0.2)'
             }}
           >
-            <span>📥</span> Export Data
+            <Download className="h-4 w-4" /> Export Data
           </button>
         </div>
       </div>
@@ -132,8 +155,8 @@ const ReportingSimple = () => {
           boxShadow: '0 1px 3px rgba(0,0,0,0.05)',
           marginBottom: '1rem'
         }}>
-          <h3 style={{ fontSize: '0.875rem', fontWeight: '600', color: '#6b7280', marginBottom: '1rem' }}>
-            📊 Filter Data
+          <h3 style={{ fontSize: '0.875rem', fontWeight: '600', color: '#6b7280', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <BarChart3 className="h-4 w-4" /> Filter Data
           </h3>
           <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
             <button
@@ -196,7 +219,7 @@ const ReportingSimple = () => {
           borderTop: '3px solid #B31741'
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.75rem' }}>
-            <span style={{ fontSize: '1.25rem' }}>📋</span>
+            <FileText className="h-5 w-5" style={{ color: '#6b7280' }} />
             <div style={{ color: '#6b7280', fontSize: '0.875rem', fontWeight: '500' }}>Total Data</div>
           </div>
           <div style={{ fontSize: '2rem', fontWeight: 'bold', color: '#1f2937' }}>{statusCount.total}</div>
@@ -212,7 +235,7 @@ const ReportingSimple = () => {
           borderTop: '3px solid #22c55e'
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.75rem' }}>
-            <span style={{ fontSize: '1.25rem' }}>✅</span>
+            <CheckCircle2 className="h-5 w-5" style={{ color: '#22c55e' }} />
             <div style={{ color: '#6b7280', fontSize: '0.875rem', fontWeight: '500' }}>Status Aman</div>
           </div>
           <div style={{ fontSize: '2rem', fontWeight: 'bold', color: '#22c55e' }}>{statusCount.aman}</div>
@@ -230,7 +253,7 @@ const ReportingSimple = () => {
           borderTop: '3px solid #eab308'
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.75rem' }}>
-            <span style={{ fontSize: '1.25rem' }}>⚠️</span>
+            <AlertTriangle className="h-5 w-5" style={{ color: '#eab308' }} />
             <div style={{ color: '#6b7280', fontSize: '0.875rem', fontWeight: '500' }}>Status Waspada</div>
           </div>
           <div style={{ fontSize: '2rem', fontWeight: 'bold', color: '#eab308' }}>{statusCount.waspada}</div>
@@ -248,7 +271,7 @@ const ReportingSimple = () => {
           borderTop: '3px solid #ef4444'
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.75rem' }}>
-            <span style={{ fontSize: '1.25rem' }}>🚨</span>
+            <AlertCircle className="h-5 w-5" style={{ color: '#ef4444' }} />
             <div style={{ color: '#6b7280', fontSize: '0.875rem', fontWeight: '500' }}>Status Bahaya</div>
           </div>
           <div style={{ fontSize: '2rem', fontWeight: 'bold', color: '#ef4444' }}>{statusCount.bahaya}</div>
@@ -424,8 +447,8 @@ const ReportingSimple = () => {
         border: '1px solid #e5e7eb',
         boxShadow: '0 1px 3px rgba(0,0,0,0.05)'
       }}>
-        <h3 style={{ fontSize: '1rem', fontWeight: '600', color: '#1f2937', marginBottom: '1rem' }}>
-          📊 Rata-rata Pembacaan Sensor (30 Hari)
+        <h3 style={{ fontSize: '1rem', fontWeight: '600', color: '#1f2937', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+          <BarChart3 className="h-5 w-5" /> Rata-rata Pembacaan Sensor (30 Hari)
         </h3>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.5rem' }}>
           <div>

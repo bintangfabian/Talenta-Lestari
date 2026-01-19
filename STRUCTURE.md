@@ -1,4 +1,4 @@
-# Struktur Project Geosafe
+# Struktur Project Talenta Lestari
 
 ## Perubahan yang Dilakukan
 
@@ -57,7 +57,7 @@ resources/js/
 ### Halaman-halaman
 
 #### 1. Home (`pages/Home.jsx`)
-- Hero section dengan branding Geosafe
+- Hero section dengan branding Talenta Lestari
 - Fitur monitoring canggih (3 cards)
 - Cara kerja sistem (3 steps)
 - Panduan mitigasi tanah longsor (5 panduan lengkap)
@@ -99,7 +99,7 @@ resources/js/
 
 Aplikasi menggunakan color scheme yang konsisten:
 
-- **Primary**: #B31741 (Merah Marun - Brand Geosafe)
+- **Primary**: #B31741 (Merah Marun - Brand Talenta Lestari)
 - **Success**: #22c55e (Hijau - Status Aman)
 - **Warning**: #eab308 (Kuning - Status Waspada)
 - **Danger**: #ef4444 (Merah - Status Bahaya)

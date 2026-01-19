@@ -1,68 +1,92 @@
-import { Mountain, Mail, MapPin, Phone } from 'lucide-react';
-import { Separator } from '@/components/ui/separator';
+import React from 'react';
+import { Mail, Phone, MapPin } from 'lucide-react';
 
-const Footer = () => {
+const Footer: React.FC = () => {
   return (
-    <footer className="bg-card border-t border-border">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+    <footer style={{
+      backgroundColor: 'white',
+      borderTop: '1px solid #e5e7eb',
+      padding: '3rem 0',
+      marginTop: 'auto'
+    }}>
+      <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 2rem' }}>
+        <div style={{ 
+          display: 'grid', 
+          gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', 
+          gap: '2rem',
+          marginBottom: '2rem'
+        }}>
           {/* Brand Section */}
-          <div className="space-y-4">
-            <div className="flex items-center space-x-3">
-              <Mountain className="h-8 w-8 text-primary" />
-              <span className="text-xl font-bold text-foreground">
-                Geosafe
+          <div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="#B31741" opacity="0.3"/>
+                <path d="M2 17L12 22L22 17" stroke="#B31741" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M2 12L12 17L22 12" stroke="#B31741" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+              <span style={{ fontSize: '1.25rem', fontWeight: 'bold', color: '#1f2937' }}>
+                Talenta Lestari
               </span>
             </div>
-            <p className="text-muted-foreground max-w-sm">
+            <p style={{ color: '#6b7280', fontSize: '0.9375rem', lineHeight: '1.6', maxWidth: '350px' }}>
               Sistem monitoring tanah longsor real-time untuk pencegahan bencana dengan teknologi sensor canggih dan analisis data terintegrasi.
             </p>
           </div>
 
           {/* Contact Information */}
-          <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-foreground">Kontak</h3>
-            <div className="space-y-3">
-              <div className="flex items-center space-x-3 text-muted-foreground">
-                <Mail className="h-4 w-4 text-primary" />
-                <span>info@geosafe.com</span>
+          <div>
+            <h3 style={{ fontSize: '1.125rem', fontWeight: '600', color: '#1f2937', marginBottom: '1rem' }}>
+              Kontak
+            </h3>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', color: '#6b7280', fontSize: '0.9375rem' }}>
+                <Mail className="h-4 w-4" />
+                <span>info@talentalestari.com</span>
               </div>
-              <div className="flex items-center space-x-3 text-muted-foreground">
-                <Phone className="h-4 w-4 text-primary" />
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', color: '#6b7280', fontSize: '0.9375rem' }}>
+                <Phone className="h-4 w-4" />
                 <span>+62 812 3456 7890</span>
               </div>
-              <div className="flex items-center space-x-3 text-muted-foreground">
-                <Phone className="h-4 w-4 text-primary" />
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', color: '#6b7280', fontSize: '0.9375rem' }}>
+                <Phone className="h-4 w-4" />
                 <span>+62 821 9876 5432</span>
               </div>
             </div>
           </div>
 
           {/* Address Information */}
-          <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-foreground">Alamat</h3>
-            <div className="flex items-start space-x-3 text-muted-foreground">
-              <MapPin className="h-4 w-4 text-primary mt-1 flex-shrink-0" />
-              <div>
-                <p>Jl. Teknologi No. 123</p>
-                <p>Desa Aribaya, Kec. Madukara</p>
-                <p>Kabupaten Banjarnegara</p>
-                <p>Jawa Tengah 53466</p>
-                <p>Indonesia</p>
+          <div>
+            <h3 style={{ fontSize: '1.125rem', fontWeight: '600', color: '#1f2937', marginBottom: '1rem' }}>
+              Alamat
+            </h3>
+            <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.75rem', color: '#6b7280', fontSize: '0.9375rem' }}>
+              <MapPin className="h-4 w-4" style={{ marginTop: '0.125rem' }} />
+              <div style={{ lineHeight: '1.6' }}>
+                <p style={{ margin: 0 }}>Jl. Teknologi No. 123</p>
+                <p style={{ margin: 0 }}>Desa Aribaya, Kec. Madukara</p>
+                <p style={{ margin: 0 }}>Kabupaten Banjarnegara</p>
+                <p style={{ margin: 0 }}>Jawa Tengah 53466</p>
+                <p style={{ margin: 0 }}>Indonesia</p>
               </div>
             </div>
           </div>
         </div>
 
-        <Separator className="my-8" />
-
-        <div className="flex flex-col sm:flex-row justify-between items-center">
-          <p className="text-muted-foreground text-sm">
-            © 2024 Geosafe. Semua hak dilindungi undang-undang.
-          </p>
-          <p className="text-muted-foreground text-sm mt-4 sm:mt-0">
-            Sistem Monitoring Tanah Longsor Indonesia
-          </p>
+        <div style={{ borderTop: '1px solid #e5e7eb', paddingTop: '2rem', marginTop: '2rem' }}>
+          <div style={{ 
+            display: 'flex', 
+            flexDirection: 'column', 
+            gap: '1rem',
+            alignItems: 'center',
+            textAlign: 'center'
+          }}>
+            <p style={{ color: '#6b7280', fontSize: '0.875rem', margin: 0 }}>
+              © {new Date().getFullYear()} Talenta Lestari. Semua hak dilindungi undang-undang.
+            </p>
+            <p style={{ color: '#6b7280', fontSize: '0.875rem', margin: 0 }}>
+              Sistem Monitoring Tanah Longsor Indonesia
+            </p>
+          </div>
         </div>
       </div>
     </footer>

@@ -18,7 +18,7 @@ const AppMinimal = () => {
           backgroundColor: '#f7fafc', 
           borderBottom: '1px solid #e2e8f0' 
         }}>
-          <h2>Geosafe Minimal Test</h2>
+          <h2>Talenta Lestari Minimal Test</h2>
         </nav>
         
         <main style={{ flex: 1, padding: '2rem' }}>
@@ -34,7 +34,7 @@ const AppMinimal = () => {
           borderTop: '1px solid #e2e8f0',
           textAlign: 'center'
         }}>
-          © 2024 Geosafe
+          © 2024 Talenta Lestari
         </footer>
       </div>
     </BrowserRouter>

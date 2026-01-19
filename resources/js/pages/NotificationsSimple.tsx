@@ -1,8 +1,21 @@
 import React, { useState } from 'react';
+import { Bell, AlertTriangle, CheckCircle2 } from 'lucide-react';
 
-const NotificationsSimple = () => {
+interface Notification {
+  id: number;
+  timestamp: Date;
+  title: string;
+  message: string;
+  soilMoisture: number;
+  rainfall: number;
+  landShift: number;
+  status: string;
+  read: boolean;
+}
+
+const NotificationsSimple: React.FC = () => {
   // Generate mock notifications
-  const generateNotifications = () => {
+  const generateNotifications = (): Notification[] => {
     const notifications = [];
     const now = new Date();
     
@@ -35,8 +48,8 @@ const NotificationsSimple = () => {
     return notifications;
   };
   
-  const [notifications] = useState(generateNotifications());
-  const [filter, setFilter] = useState('all');
+  const [notifications] = useState<Notification[]>(generateNotifications());
+  const [filter, setFilter] = useState<string>('all');
   
   const filteredNotifications = filter === 'all'
     ? notifications
@@ -48,7 +61,7 @@ const NotificationsSimple = () => {
   const unreadCount = notifications.filter(n => !n.read).length;
   const readCount = notifications.filter(n => n.read).length;
   
-  const markAllAsRead = () => {
+  const markAllAsRead = (): void => {
     // In real app, this would update the state
     alert('Semua notifikasi telah ditandai sebagai sudah dibaca');
   };
@@ -62,8 +75,8 @@ const NotificationsSimple = () => {
             <h1 style={{ fontSize: '1.75rem', fontWeight: 'bold', color: '#B31741', margin: 0, marginBottom: '0.5rem' }}>
               Notifikasi Peringatan
             </h1>
-            <p style={{ color: '#6b7280', margin: 0, fontSize: '0.9375rem' }}>
-              🔔 Notifikasi untuk status bahaya tanah longsor
+            <p style={{ color: '#6b7280', margin: 0, fontSize: '0.9375rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <Bell className="h-4 w-4" /> Notifikasi untuk status bahaya tanah longsor
             </p>
           </div>
           
@@ -107,7 +120,7 @@ const NotificationsSimple = () => {
               alignItems: 'center',
               justifyContent: 'center'
             }}>
-              <span style={{ fontSize: '1.25rem' }}>🔔</span>
+              <Bell className="h-5 w-5" style={{ color: '#B31741' }} />
             </div>
             <div style={{ color: '#6b7280', fontSize: '0.875rem', fontWeight: '500' }}>Total Notifikasi</div>
           </div>
@@ -131,7 +144,7 @@ const NotificationsSimple = () => {
               alignItems: 'center',
               justifyContent: 'center'
             }}>
-              <span style={{ fontSize: '1.25rem' }}>⚠️</span>
+              <AlertTriangle className="h-5 w-5" style={{ color: '#ef4444' }} />
             </div>
             <div style={{ color: '#6b7280', fontSize: '0.875rem', fontWeight: '500' }}>Belum Dibaca</div>
           </div>
@@ -155,7 +168,7 @@ const NotificationsSimple = () => {
               alignItems: 'center',
               justifyContent: 'center'
             }}>
-              <span style={{ fontSize: '1.25rem' }}>✅</span>
+              <CheckCircle2 className="h-5 w-5" style={{ color: '#22c55e' }} />
             </div>
             <div style={{ color: '#6b7280', fontSize: '0.875rem', fontWeight: '500' }}>Sudah Dibaca</div>
           </div>
@@ -210,7 +223,9 @@ const NotificationsSimple = () => {
             textAlign: 'center',
             boxShadow: '0 1px 3px rgba(0,0,0,0.05)'
           }}>
-            <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>🔔</div>
+            <div style={{ marginBottom: '1rem', display: 'flex', justifyContent: 'center' }}>
+              <Bell className="h-12 w-12" style={{ color: '#9ca3af' }} />
+            </div>
             <h3 style={{ fontSize: '1.25rem', fontWeight: '600', color: '#1f2937', marginBottom: '0.5rem' }}>
               Tidak ada notifikasi
             </h3>
@@ -250,7 +265,7 @@ const NotificationsSimple = () => {
                       alignItems: 'center',
                       justifyContent: 'center'
                     }}>
-                      <span style={{ fontSize: '1rem' }}>⚠️</span>
+                      <AlertTriangle className="h-4 w-4" style={{ color: '#ef4444' }} />
                     </div>
                     <h3 style={{ fontSize: '1.0625rem', fontWeight: '600', color: '#1f2937', margin: 0 }}>
                       {notif.title}

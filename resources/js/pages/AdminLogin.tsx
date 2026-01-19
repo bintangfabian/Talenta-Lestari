@@ -1,23 +1,16 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Mountain, Lock, Mail, Eye, EyeOff } from 'lucide-react';
-import { useToast } from '@/hooks/use-toast';
+import { Eye, EyeOff } from 'lucide-react';
 
-const AdminLogin = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
+const AdminLogin: React.FC = () => {
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string>('');
   const navigate = useNavigate();
-  const { toast } = useToast();
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
     setError('');
@@ -35,14 +28,11 @@ const AdminLogin = () => {
       const data = await response.json();
 
       if (data.success) {
-        toast({
-          title: 'Login Berhasil',
-          description: `Selamat datang, ${data.user.name}!`,
-        });
-        
+        alert(`Login Berhasil! Selamat datang, ${data.user.name}!`);
+
         // Store admin info in localStorage
         localStorage.setItem('admin_user', JSON.stringify(data.user));
-        
+
         // Redirect to admin dashboard
         navigate('/admin/dashboard');
       } else {
@@ -55,104 +45,163 @@ const AdminLogin = () => {
     }
   };
 
+  const cardStyle = {
+    backgroundColor: 'white',
+    borderRadius: '0.75rem',
+    padding: '2rem',
+    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+    border: '1px solid #e2e8f0',
+    width: '100%',
+    maxWidth: '400px'
+  };
+
+  const inputStyle = {
+    width: '100%',
+    padding: '0.75rem',
+    border: '1px solid #d1d5db',
+    borderRadius: '0.375rem',
+    fontSize: '1rem',
+    marginTop: '0.5rem'
+  };
+
+  const buttonStyle = {
+    width: '100%',
+    padding: '0.75rem',
+    backgroundColor: '#B31741',
+    color: 'white',
+    border: 'none',
+    borderRadius: '0.375rem',
+    fontSize: '1rem',
+    fontWeight: '600',
+    cursor: isLoading ? 'not-allowed' : 'pointer',
+    opacity: isLoading ? 0.6 : 1
+  };
+
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center px-4">
-      <div className="w-full max-w-md">
-        <div className="text-center mb-8">
-          <div className="flex justify-center mb-4">
-            <div className="p-3 bg-primary/10 rounded-full">
-              <Mountain className="h-12 w-12 text-primary" />
-            </div>
+    <div style={{
+      minHeight: '100vh',
+      backgroundColor: '#f8f9fa',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      padding: '1rem'
+    }}>
+      <div style={{ width: '100%', maxWidth: '400px' }}>
+        <div style={cardStyle}>
+          <div style={{ marginBottom: '1.5rem' }}>
+            <h2 style={{
+              fontSize: '1.25rem',
+              fontWeight: '600',
+              color: '#1f2937',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.5rem',
+              margin: 0
+            }}>
+              Login
+            </h2>
           </div>
-          <h1 className="text-2xl font-bold text-foreground">Admin Geosafe</h1>
-          <p className="text-muted-foreground mt-2">
-            Sistem Monitoring Tanah Longsor Desa Aribaya, Banjarnegara
-          </p>
+
+          <form onSubmit={handleSubmit}>
+            {error && (
+              <div style={{
+                backgroundColor: '#fef2f2',
+                border: '1px solid #fecaca',
+                color: '#dc2626',
+                padding: '0.75rem',
+                borderRadius: '0.375rem',
+                marginBottom: '1rem',
+                fontSize: '0.875rem'
+              }}>
+                {error}
+              </div>
+            )}
+
+            <div style={{ marginBottom: '1rem' }}>
+              <label style={{
+                display: 'block',
+                fontSize: '0.875rem',
+                fontWeight: '500',
+                color: '#374151'
+              }}>
+                Email
+              </label>
+              <input
+                type="email"
+                placeholder="admin@talentalestari.aribaya.id"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                style={inputStyle}
+                required
+              />
+            </div>
+
+            <div style={{ marginBottom: '1.5rem' }}>
+              <label style={{
+                display: 'block',
+                fontSize: '0.875rem',
+                fontWeight: '500',
+                color: '#374151'
+              }}>
+                Password
+              </label>
+              <div style={{ position: 'relative' }}>
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  placeholder="Masukkan password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  style={inputStyle}
+                  required
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  style={{
+                    position: 'absolute',
+                    right: '0.75rem',
+                    top: '50%',
+                    transform: 'translateY(-50%)',
+                    background: 'none',
+                    border: 'none',
+                    cursor: 'pointer',
+                    color: '#6b7280'
+                  }}
+                >
+                  {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                </button>
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              style={buttonStyle}
+              disabled={isLoading}
+            >
+              {isLoading ? 'Memproses...' : 'Login'}
+            </button>
+          </form>
+
+          <div style={{ marginTop: '1.5rem', textAlign: 'center' }}>
+            <p style={{ fontSize: '0.875rem', color: '#6b7280' }}>
+              Akses khusus administrator sistem monitoring
+            </p>
+          </div>
         </div>
 
-        <Card className="bg-card border-border">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Lock className="h-5 w-5 text-primary" />
-              Login Administrator
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-4">
-              {error && (
-                <Alert variant="destructive">
-                  <AlertDescription>{error}</AlertDescription>
-                </Alert>
-              )}
-
-              <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
-                <div className="relative">
-                  <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                  <Input
-                    id="email"
-                    type="email"
-                    placeholder="admin@geosafe.aribaya.id"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="pl-10"
-                    required
-                  />
-                </div>
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="password">Password</Label>
-                <div className="relative">
-                  <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                  <Input
-                    id="password"
-                    type={showPassword ? 'text' : 'password'}
-                    placeholder="Masukkan password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="pl-10 pr-10"
-                    required
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-3 text-muted-foreground hover:text-foreground"
-                  >
-                    {showPassword ? (
-                      <EyeOff className="h-4 w-4" />
-                    ) : (
-                      <Eye className="h-4 w-4" />
-                    )}
-                  </button>
-                </div>
-              </div>
-
-              <Button 
-                type="submit" 
-                className="w-full" 
-                disabled={isLoading}
-              >
-                {isLoading ? 'Memproses...' : 'Login'}
-              </Button>
-            </form>
-
-            <div className="mt-6 text-center">
-              <p className="text-sm text-muted-foreground">
-                Akses khusus administrator sistem monitoring
-              </p>
-            </div>
-          </CardContent>
-        </Card>
-
-        <div className="mt-6 text-center">
-          <Button 
-            variant="ghost" 
+        <div style={{ marginTop: '1.5rem', textAlign: 'center' }}>
+          <button
             onClick={() => navigate('/')}
-            className="text-muted-foreground hover:text-foreground"
+            style={{
+              background: 'none',
+              border: 'none',
+              color: '#6b7280',
+              cursor: 'pointer',
+              fontSize: '0.875rem'
+            }}
           >
             ← Kembali ke Beranda
-          </Button>
+          </button>
         </div>
       </div>
     </div>

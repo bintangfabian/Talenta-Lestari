@@ -1,17 +1,17 @@
 #!/bin/bash
 
-# Geosafe Development Server Launcher
+# Talenta Lestari Development Server Launcher
 # This script starts both Laravel and Vite dev servers
 
 echo "╔══════════════════════════════════════════════════════════╗"
-echo "║         Geosafe Development Server Launcher              ║"
+echo "║      Talenta Lestari Development Server Launcher          ║"
 echo "╚══════════════════════════════════════════════════════════╝"
 echo ""
 
 # Check if we're in the correct directory
 if [ ! -f "artisan" ]; then
     echo "❌ Error: artisan file not found!"
-    echo "Please run this script from the Geosafe-V2 directory"
+    echo "Please run this script from the Talenta-Lestari-V2 directory"
     exit 1
 fi
 

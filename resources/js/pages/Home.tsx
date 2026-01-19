@@ -1,209 +1,312 @@
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Link } from 'react-router-dom';
-import { 
-  Mountain, 
-  Shield, 
-  Activity, 
-  AlertTriangle, 
-  Droplets, 
-  Gauge,
-  TrendingUp
-} from 'lucide-react';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
-const Home = () => {
+const Home: React.FC = () => {
+  const navigate = useNavigate();
+
   return (
-    <div className="min-h-screen bg-background">
+    <div style={{ backgroundColor: '#fff' }}>
+
       {/* Hero Section */}
-      <section className="relative py-20 px-4 text-center">
-        <div className="max-w-4xl mx-auto">
-          <div className="flex justify-center mb-6">
-            <div className="p-4 bg-primary/10 rounded-full">
-              <Mountain className="h-16 w-16 text-primary" />
-            </div>
+      <section style={{ padding: '5rem 2rem 4rem', textAlign: 'center', backgroundColor: '#fff' }}>
+        <div style={{ maxWidth: '800px', margin: '0 auto' }}>
+          {/* Icon */}
+          <div style={{ marginBottom: '2rem' }}>
+            <svg width="80" height="80" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ margin: '0 auto' }}>
+              <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="#B31741" opacity="0.3"/>
+              <path d="M2 17L12 22L22 17" stroke="#B31741" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M2 12L12 17L22 12" stroke="#B31741" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
           </div>
           
-          <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-6">
-            <span className="text-primary block">Geosafe</span>
-            Sistem Monitoring Tanah Longsor
+          <h1 style={{ 
+            fontSize: '2.5rem', 
+            fontWeight: 'bold', 
+            color: '#B31741',
+            marginBottom: '0.5rem',
+            lineHeight: '1.2'
+          }}>
+            Talenta Lestari
           </h1>
           
-          <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Sistem monitoring tanah longsor real-time untuk melindungi masyarakat 
-            <strong className="text-primary"> Desa Aribaya, Banjarnegara</strong> dengan 
-            teknologi sensor canggih dan analisis data terintegrasi.
+          <h2 style={{ 
+            fontSize: '1.75rem', 
+            fontWeight: '600', 
+            color: '#B31741',
+            marginBottom: '1.5rem',
+            lineHeight: '1.3'
+          }}>
+            Sistem Monitoring Tanah Longsor
+          </h2>
+          
+          <p style={{ 
+            fontSize: '1rem', 
+            color: '#6b7280', 
+            marginBottom: '2.5rem',
+            lineHeight: '1.6',
+            maxWidth: '600px',
+            margin: '0 auto 2.5rem'
+          }}>
+            Sistem monitoring tanah longsor real-time untuk melindungi masyarakat Desa Aribaya, 
+            Banjarnegara dengan teknologi sensor canggih dan analisis data terintegrasi.
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild size="lg" className="text-lg px-8">
-              <Link to="/monitoring">
-                <Activity className="mr-2 h-5 w-5" />
-                Mulai Monitoring
-              </Link>
-            </Button>
-            <Button asChild variant="outline" size="lg" className="text-lg px-8">
-              <Link to="/reporting">
-                <TrendingUp className="mr-2 h-5 w-5" />
-                Lihat Laporan
-              </Link>
-            </Button>
+          <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
+            <button 
+              onClick={() => navigate('/monitoring')}
+              style={{
+                backgroundColor: '#B31741',
+                color: 'white',
+                padding: '0.875rem 2rem',
+                fontSize: '1rem',
+                border: 'none',
+                borderRadius: '0.5rem',
+                cursor: 'pointer',
+                fontWeight: '500',
+                boxShadow: '0 2px 8px rgba(179, 23, 65, 0.3)',
+                transition: 'all 0.3s'
+              }}
+            >
+              Mulai Monitoring
+            </button>
+            <button 
+              onClick={() => navigate('/reporting')}
+              style={{
+                backgroundColor: 'white',
+                color: '#B31741',
+                padding: '0.875rem 2rem',
+                fontSize: '1rem',
+                border: '2px solid #B31741',
+                borderRadius: '0.5rem',
+                cursor: 'pointer',
+                fontWeight: '500',
+                transition: 'all 0.3s'
+              }}
+            >
+              Lihat Laporan
+            </button>
           </div>
         </div>
       </section>
 
       {/* Features Section */}
-      <section className="py-16 px-4">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold text-center text-foreground mb-12">
+      <section style={{ padding: '4rem 2rem', backgroundColor: '#fafafa' }}>
+        <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
+          <h2 style={{ 
+            fontSize: '1.875rem', 
+            fontWeight: 'bold', 
+            textAlign: 'center',
+            color: '#1f2937',
+            marginBottom: '3rem'
+          }}>
             Fitur Monitoring Canggih
           </h2>
           
-          <div className="grid md:grid-cols-3 gap-8">
-            <Card className="bg-card border-border">
-              <CardHeader className="text-center">
-                <div className="mx-auto p-3 bg-primary/10 rounded-full w-fit mb-4">
-                  <Droplets className="h-8 w-8 text-primary" />
-                </div>
-                <CardTitle>Kelembaban Tanah</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground text-center">
-                  Monitoring kelembaban tanah secara real-time untuk mendeteksi 
-                  perubahan kondisi yang dapat memicu tanah longsor.
-                </p>
-              </CardContent>
-            </Card>
+          <div style={{ 
+            display: 'grid', 
+            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+            gap: '2.5rem'
+          }}>
+            {/* Feature 1 */}
+            <div style={{
+              backgroundColor: 'white',
+              padding: '2rem 1.5rem',
+              borderRadius: '0.75rem',
+              border: '1px solid #e5e7eb',
+              textAlign: 'center',
+              boxShadow: '0 1px 3px rgba(0,0,0,0.05)'
+            }}>
+              <div style={{ 
+                width: '60px', 
+                height: '60px', 
+                margin: '0 auto 1.25rem',
+                backgroundColor: 'rgba(179, 23, 65, 0.1)',
+                borderRadius: '50%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}>
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 2.69L17 7.19V13.69C17 17.69 14 21.19 12 22.19C10 21.19 7 17.69 7 13.69V7.19L12 2.69Z" stroke="#B31741" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </div>
+              <h3 style={{ fontSize: '1.125rem', fontWeight: '600', color: '#1f2937', marginBottom: '0.75rem' }}>
+                Kelembaban Tanah
+              </h3>
+              <p style={{ color: '#6b7280', lineHeight: '1.6', fontSize: '0.9375rem' }}>
+                Monitoring kelembaban tanah secara real-time untuk mendeteksi 
+                perubahan kondisi yang dapat memicu tanah longsor.
+              </p>
+            </div>
 
-            <Card className="bg-card border-border">
-              <CardHeader className="text-center">
-                <div className="mx-auto p-3 bg-primary/10 rounded-full w-fit mb-4">
-                  <Gauge className="h-8 w-8 text-primary" />
-                </div>
-                <CardTitle>Pergeseran Tanah</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground text-center">
-                  Deteksi pergeseran tanah dengan sensor presisi tinggi untuk 
-                  peringatan dini bencana tanah longsor.
-                </p>
-              </CardContent>
-            </Card>
+            {/* Feature 2 */}
+            <div style={{
+              backgroundColor: 'white',
+              padding: '2rem 1.5rem',
+              borderRadius: '0.75rem',
+              border: '1px solid #e5e7eb',
+              textAlign: 'center',
+              boxShadow: '0 1px 3px rgba(0,0,0,0.05)'
+            }}>
+              <div style={{ 
+                width: '60px', 
+                height: '60px', 
+                margin: '0 auto 1.25rem',
+                backgroundColor: 'rgba(179, 23, 65, 0.1)',
+                borderRadius: '50%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}>
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M21 16V8C21 6.9 20.1 6 19 6H5C3.9 6 3 6.9 3 8V16C3 17.1 3.9 18 5 18H19C20.1 18 21 17.1 21 16Z" stroke="#B31741" strokeWidth="2"/>
+                  <path d="M12 12H12.01" stroke="#B31741" strokeWidth="2" strokeLinecap="round"/>
+                </svg>
+              </div>
+              <h3 style={{ fontSize: '1.125rem', fontWeight: '600', color: '#1f2937', marginBottom: '0.75rem' }}>
+                Pergeseran Tanah
+              </h3>
+              <p style={{ color: '#6b7280', lineHeight: '1.6', fontSize: '0.9375rem' }}>
+                Deteksi pergeseran tanah dengan sensor presisi tinggi untuk 
+                peringatan dini bencana tanah longsor.
+              </p>
+            </div>
 
-            <Card className="bg-card border-border">
-              <CardHeader className="text-center">
-                <div className="mx-auto p-3 bg-primary/10 rounded-full w-fit mb-4">
-                  <AlertTriangle className="h-8 w-8 text-primary" />
-                </div>
-                <CardTitle>Sistem Peringatan</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground text-center">
-                  Sistem peringatan otomatis dengan tiga level: Aman, Waspada, 
-                  dan Bahaya untuk respons cepat.
-                </p>
-              </CardContent>
-            </Card>
+            {/* Feature 3 */}
+            <div style={{
+              backgroundColor: 'white',
+              padding: '2rem 1.5rem',
+              borderRadius: '0.75rem',
+              border: '1px solid #e5e7eb',
+              textAlign: 'center',
+              boxShadow: '0 1px 3px rgba(0,0,0,0.05)'
+            }}>
+              <div style={{ 
+                width: '60px', 
+                height: '60px', 
+                margin: '0 auto 1.25rem',
+                backgroundColor: 'rgba(179, 23, 65, 0.1)',
+                borderRadius: '50%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}>
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M10.29 3.86L1.82 18C1.64 18.3 1.54 18.65 1.53 19C1.53 20.1 2.43 21 3.53 21H20.47C20.82 21 21.17 20.9 21.47 20.71C22.42 20.12 22.73 18.88 22.14 17.93L13.71 3.86C13.32 3.18 12.65 2.75 11.93 2.75C11.21 2.75 10.54 3.18 10.29 3.86Z" stroke="#B31741" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M12 9V13" stroke="#B31741" strokeWidth="2" strokeLinecap="round"/>
+                  <path d="M12 17H12.01" stroke="#B31741" strokeWidth="2" strokeLinecap="round"/>
+                </svg>
+              </div>
+              <h3 style={{ fontSize: '1.125rem', fontWeight: '600', color: '#1f2937', marginBottom: '0.75rem' }}>
+                Sistem Peringatan
+              </h3>
+              <p style={{ color: '#6b7280', lineHeight: '1.6', fontSize: '0.9375rem' }}>
+                Sistem peringatan otomatis dengan tiga level: Aman, Waspada, 
+                dan Bahaya untuk respons cepat.
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
       {/* How It Works Section */}
-      <section className="py-16 px-4 bg-muted/30">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl font-bold text-foreground mb-8">
+      <section style={{ padding: '4rem 2rem', backgroundColor: 'white' }}>
+        <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
+          <h2 style={{ 
+            fontSize: '1.875rem', 
+            fontWeight: 'bold', 
+            textAlign: 'center',
+            color: '#1f2937',
+            marginBottom: '3rem'
+          }}>
             Cara Kerja Sistem
           </h2>
           
-          <div className="grid md:grid-cols-2 gap-8 items-center">
-            <div className="space-y-6 text-left">
-              <div className="flex items-start space-x-4">
-                <div className="flex-shrink-0 w-8 h-8 bg-primary rounded-full flex items-center justify-center text-primary-foreground font-bold">
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0', maxWidth: '900px', margin: '0 auto' }}>
+            {/* Left side - Steps */}
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '2rem' }}>
+              {/* Step 1 */}
+              <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'flex-start' }}>
+                <div style={{
+                  width: '48px',
+                  height: '48px',
+                  backgroundColor: '#B31741',
+                  borderRadius: '50%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: 'white',
+                  fontSize: '1.25rem',
+                  fontWeight: 'bold',
+                  flexShrink: 0
+                }}>
                   1
                 </div>
-                <div>
-                  <h3 className="font-semibold text-foreground mb-2">
+                <div style={{ flex: 1 }}>
+                  <h3 style={{ fontSize: '1.125rem', fontWeight: '600', color: '#1f2937', marginBottom: '0.5rem' }}>
                     Pengumpulan Data Sensor
                   </h3>
-                  <p className="text-muted-foreground">
-                    Sensor IoT mengumpulkan data kelembaban tanah, curah hujan, 
-                    dan pergeseran tanah secara kontinyu di <strong>Desa Aribaya, Banjarnegara</strong>.
+                  <p style={{ color: '#6b7280', lineHeight: '1.6', fontSize: '0.9375rem' }}>
+                    Sensor IoT mengumpulkan data kelembaban tanah, curah hujan, dan pergeseran tanah secara kontinyu 
+                    di Desa Aribaya, Banjarnegara untuk monitoring kondisi tanah secara real-time.
                   </p>
                 </div>
               </div>
-              
-              <div className="flex items-start space-x-4">
-                <div className="flex-shrink-0 w-8 h-8 bg-primary rounded-full flex items-center justify-center text-primary-foreground font-bold">
+
+              {/* Step 2 */}
+              <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'flex-start' }}>
+                <div style={{
+                  width: '48px',
+                  height: '48px',
+                  backgroundColor: '#B31741',
+                  borderRadius: '50%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: 'white',
+                  fontSize: '1.25rem',
+                  fontWeight: 'bold',
+                  flexShrink: 0
+                }}>
                   2
                 </div>
-                <div>
-                  <h3 className="font-semibold text-foreground mb-2">
+                <div style={{ flex: 1 }}>
+                  <h3 style={{ fontSize: '1.125rem', fontWeight: '600', color: '#1f2937', marginBottom: '0.5rem' }}>
                     Analisis Real-time
                   </h3>
-                  <p className="text-muted-foreground">
-                    Data dianalisis secara real-time menggunakan algoritma 
-                    untuk menentukan tingkat risiko longsor.
+                  <p style={{ color: '#6b7280', lineHeight: '1.6', fontSize: '0.9375rem' }}>
+                    Data dianalisis secara real-time menggunakan algoritma canggih untuk menentukan tingkat risiko 
+                    longsor dan memberikan status peringatan yang akurat.
                   </p>
                 </div>
               </div>
-              
-              <div className="flex items-start space-x-4">
-                <div className="flex-shrink-0 w-8 h-8 bg-primary rounded-full flex items-center justify-center text-primary-foreground font-bold">
+
+              {/* Step 3 */}
+              <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'flex-start' }}>
+                <div style={{
+                  width: '48px',
+                  height: '48px',
+                  backgroundColor: '#B31741',
+                  borderRadius: '50%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: 'white',
+                  fontSize: '1.25rem',
+                  fontWeight: 'bold',
+                  flexShrink: 0
+                }}>
                   3
                 </div>
-                <div>
-                  <h3 className="font-semibold text-foreground mb-2">
+                <div style={{ flex: 1 }}>
+                  <h3 style={{ fontSize: '1.125rem', fontWeight: '600', color: '#1f2937', marginBottom: '0.5rem' }}>
                     Peringatan & Notifikasi
                   </h3>
-                  <p className="text-muted-foreground">
-                    Sistem memberikan peringatan otomatis kepada warga <strong>Desa Aribaya, Banjarnegara</strong> 
-                    dan pihak berwenang untuk respons cepat.
+                  <p style={{ color: '#6b7280', lineHeight: '1.6', fontSize: '0.9375rem' }}>
+                    Sistem memberikan peringatan otomatis kepada warga Desa Aribaya, Banjarnegara dan pihak berwenang 
+                    untuk respons cepat dalam menghadapi potensi bencana tanah longsor.
                   </p>
                 </div>
-              </div>
-            </div>
-            
-            <div className="flex justify-center">
-              <div className="relative">
-                <div className="w-64 h-64 bg-gradient-to-br from-primary/20 to-accent/20 rounded-full flex items-center justify-center">
-                  <Shield className="h-24 w-24 text-primary" />
-                </div>
-                <div className="absolute -top-4 -right-4 w-16 h-16 bg-status-aman rounded-full flex items-center justify-center">
-                  <Activity className="h-8 w-8 text-white" />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* About Section */}
-      <section className="py-16 px-4 bg-primary/5">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl font-bold text-foreground mb-8">
-            Tentang Geosafe Aribaya
-          </h2>
-          <div className="bg-card rounded-lg p-8 border border-border">
-            <p className="text-lg text-muted-foreground mb-6">
-              Website ini didedikasikan khusus untuk melayani masyarakat <strong className="text-primary">Desa Aribaya, 
-              Kabupaten Banjarnegara</strong> dalam upaya mitigasi dan monitoring bencana tanah longsor.
-            </p>
-            <p className="text-muted-foreground mb-6">
-              Desa Aribaya yang terletak di daerah perbukitan memiliki potensi risiko tanah longsor, 
-              terutama pada musim hujan. Sistem Geosafe hadir sebagai solusi teknologi untuk memberikan 
-              peringatan dini dan membantu masyarakat dalam mengantisipasi bencana.
-            </p>
-            <div className="grid md:grid-cols-3 gap-6 mt-8">
-              <div className="text-center">
-                <div className="text-2xl font-bold text-primary mb-2">24/7</div>
-                <p className="text-sm text-muted-foreground">Monitoring Berkelanjutan</p>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-primary mb-2">Real-time</div>
-                <p className="text-sm text-muted-foreground">Data Sensor Langsung</p>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-primary mb-2">Komunitas</div>
-                <p className="text-sm text-muted-foreground">Fokus Desa Aribaya</p>
               </div>
             </div>
           </div>
@@ -211,126 +314,202 @@ const Home = () => {
       </section>
 
       {/* Landslide Mitigation Guide Section */}
-      <section className="py-16 px-4">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl font-bold text-center text-foreground mb-12">
+      <section style={{ padding: '4rem 2rem', backgroundColor: '#fafafa' }}>
+        <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
+          <h2 style={{ 
+            fontSize: '1.875rem', 
+            fontWeight: 'bold', 
+            textAlign: 'center',
+            color: '#1f2937',
+            marginBottom: '3rem'
+          }}>
             Panduan Mitigasi Tanah Longsor untuk Desa Aribaya
           </h2>
           
-          <div className="grid gap-8">
-            <Card className="bg-card border-border">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
-                    <span className="text-primary font-bold">1</span>
-                  </div>
+          <div style={{ display: 'grid', gap: '2rem' }}>
+            {/* Guide 1 */}
+            <div style={{
+              backgroundColor: 'white',
+              borderRadius: '0.75rem',
+              padding: '2rem',
+              border: '1px solid #e5e7eb',
+              boxShadow: '0 1px 3px rgba(0,0,0,0.05)'
+            }}>
+              <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem', marginBottom: '1rem' }}>
+                <div style={{
+                  width: '36px',
+                  height: '36px',
+                  backgroundColor: 'rgba(179, 23, 65, 0.1)',
+                  borderRadius: '50%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  flexShrink: 0
+                }}>
+                  <span style={{ color: '#B31741', fontWeight: 'bold', fontSize: '1.125rem' }}>1</span>
+                </div>
+                <h3 style={{ fontSize: '1.125rem', fontWeight: '600', color: '#1f2937', margin: 0 }}>
                   Pemantauan Cuaca dan Curah Hujan
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground mb-4">
-                  Selalu pantau kondisi cuaca dan tingkat curah hujan, terutama saat musim hujan. 
-                  Hujan lebat berkepanjangan dapat memicu tanah longsor.
-                </p>
-                <ul className="list-disc pl-5 space-y-2 text-muted-foreground">
-                  <li>Gunakan sistem peringatan dini Geosafe untuk monitoring real-time</li>
-                  <li>Perhatikan peringatan cuaca dari BMKG</li>
-                  <li>Catat dan laporkan perubahan kondisi tanah setelah hujan lebat</li>
-                </ul>
-              </CardContent>
-            </Card>
+                </h3>
+              </div>
+              <p style={{ color: '#6b7280', marginBottom: '1rem', lineHeight: '1.6', fontSize: '0.9375rem' }}>
+                Selalu pantau kondisi cuaca dan tingkat curah hujan, terutama saat musim hujan. 
+                Hujan lebat berkepanjangan dapat memicu tanah longsor.
+              </p>
+              <ul style={{ color: '#6b7280', paddingLeft: '1.25rem', lineHeight: '1.6', fontSize: '0.9375rem', margin: 0 }}>
+                <li style={{ marginBottom: '0.5rem' }}>Gunakan sistem peringatan dini Talenta Lestari untuk monitoring real-time</li>
+                <li style={{ marginBottom: '0.5rem' }}>Perhatikan peringatan cuaca dari BMKG</li>
+                <li>Catat dan laporkan perubahan kondisi tanah setelah hujan lebat</li>
+              </ul>
+            </div>
 
-            <Card className="bg-card border-border">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
-                    <span className="text-primary font-bold">2</span>
-                  </div>
+            {/* Guide 2 */}
+            <div style={{
+              backgroundColor: 'white',
+              borderRadius: '0.75rem',
+              padding: '2rem',
+              border: '1px solid #e5e7eb',
+              boxShadow: '0 1px 3px rgba(0,0,0,0.05)'
+            }}>
+              <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem', marginBottom: '1rem' }}>
+                <div style={{
+                  width: '36px',
+                  height: '36px',
+                  backgroundColor: 'rgba(179, 23, 65, 0.1)',
+                  borderRadius: '50%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  flexShrink: 0
+                }}>
+                  <span style={{ color: '#B31741', fontWeight: 'bold', fontSize: '1.125rem' }}>2</span>
+                </div>
+                <h3 style={{ fontSize: '1.125rem', fontWeight: '600', color: '#1f2937', margin: 0 }}>
                   Identifikasi Tanda-tanda Bahaya
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground mb-4">
-                  Kenali tanda-tanda awal yang mengindikasikan potensi tanah longsor di area Desa Aribaya:
-                </p>
-                <ul className="list-disc pl-5 space-y-2 text-muted-foreground">
-                  <li>Retakan pada tanah, dinding rumah, atau jalan</li>
-                  <li>Air yang keluar dari lereng atau tanah</li>
-                  <li>Pohon atau tiang listrik yang miring</li>
-                  <li>Suara gemuruh dari dalam tanah</li>
-                  <li>Perubahan aliran air sungai atau mata air</li>
-                </ul>
-              </CardContent>
-            </Card>
+                </h3>
+              </div>
+              <p style={{ color: '#6b7280', marginBottom: '1rem', lineHeight: '1.6', fontSize: '0.9375rem' }}>
+                Kenali tanda-tanda awal yang mengindikasikan potensi tanah longsor di area Desa Aribaya:
+              </p>
+              <ul style={{ color: '#6b7280', paddingLeft: '1.25rem', lineHeight: '1.6', fontSize: '0.9375rem', margin: 0 }}>
+                <li style={{ marginBottom: '0.5rem' }}>Retakan pada tanah, dinding rumah, atau jalan</li>
+                <li style={{ marginBottom: '0.5rem' }}>Air yang keluar dari lereng atau tanah</li>
+                <li style={{ marginBottom: '0.5rem' }}>Pohon atau tiang listrik yang miring</li>
+                <li style={{ marginBottom: '0.5rem' }}>Suara gemuruh dari dalam tanah</li>
+                <li>Perubahan aliran air sungai atau mata air</li>
+              </ul>
+            </div>
 
-            <Card className="bg-card border-border">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
-                    <span className="text-primary font-bold">3</span>
-                  </div>
+            {/* Guide 3 */}
+            <div style={{
+              backgroundColor: 'white',
+              borderRadius: '0.75rem',
+              padding: '2rem',
+              border: '1px solid #e5e7eb',
+              boxShadow: '0 1px 3px rgba(0,0,0,0.05)'
+            }}>
+              <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem', marginBottom: '1rem' }}>
+                <div style={{
+                  width: '36px',
+                  height: '36px',
+                  backgroundColor: 'rgba(179, 23, 65, 0.1)',
+                  borderRadius: '50%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  flexShrink: 0
+                }}>
+                  <span style={{ color: '#B31741', fontWeight: 'bold', fontSize: '1.125rem' }}>3</span>
+                </div>
+                <h3 style={{ fontSize: '1.125rem', fontWeight: '600', color: '#1f2937', margin: 0 }}>
                   Langkah Pencegahan di Rumah
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground mb-4">
-                  Tindakan pencegahan yang dapat dilakukan warga Desa Aribaya:
-                </p>
-                <ul className="list-disc pl-5 space-y-2 text-muted-foreground">
-                  <li>Tanam tanaman berakar kuat di sekitar rumah dan lereng</li>
-                  <li>Buat saluran drainase yang baik untuk mengalirkan air hujan</li>
-                  <li>Hindari membuang sampah di saluran air</li>
-                  <li>Jangan membangun di daerah lereng curam tanpa izin</li>
-                  <li>Lakukan penghijauan di area yang rawan longsor</li>
-                </ul>
-              </CardContent>
-            </Card>
+                </h3>
+              </div>
+              <p style={{ color: '#6b7280', marginBottom: '1rem', lineHeight: '1.6', fontSize: '0.9375rem' }}>
+                Tindakan pencegahan yang dapat dilakukan warga Desa Aribaya:
+              </p>
+              <ul style={{ color: '#6b7280', paddingLeft: '1.25rem', lineHeight: '1.6', fontSize: '0.9375rem', margin: 0 }}>
+                <li style={{ marginBottom: '0.5rem' }}>Tanam tanaman berakar kuat di sekitar rumah dan lereng</li>
+                <li style={{ marginBottom: '0.5rem' }}>Buat saluran drainase yang baik untuk mengalirkan air hujan</li>
+                <li style={{ marginBottom: '0.5rem' }}>Hindari membuang sampah di saluran air</li>
+                <li style={{ marginBottom: '0.5rem' }}>Jangan membangun di daerah lereng curam tanpa izin</li>
+                <li>Lakukan penghijauan di area yang rawan longsor</li>
+              </ul>
+            </div>
 
-            <Card className="bg-card border-border">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
-                    <span className="text-primary font-bold">4</span>
-                  </div>
+            {/* Guide 4 */}
+            <div style={{
+              backgroundColor: 'white',
+              borderRadius: '0.75rem',
+              padding: '2rem',
+              border: '1px solid #e5e7eb',
+              boxShadow: '0 1px 3px rgba(0,0,0,0.05)'
+            }}>
+              <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem', marginBottom: '1rem' }}>
+                <div style={{
+                  width: '36px',
+                  height: '36px',
+                  backgroundColor: 'rgba(179, 23, 65, 0.1)',
+                  borderRadius: '50%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  flexShrink: 0
+                }}>
+                  <span style={{ color: '#B31741', fontWeight: 'bold', fontSize: '1.125rem' }}>4</span>
+                </div>
+                <h3 style={{ fontSize: '1.125rem', fontWeight: '600', color: '#1f2937', margin: 0 }}>
                   Rencana Evakuasi Darurat
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground mb-4">
-                  Siapkan rencana evakuasi untuk keluarga dan komunitas:
-                </p>
-                <ul className="list-disc pl-5 space-y-2 text-muted-foreground">
-                  <li>Kenali jalur evakuasi teraman menuju tempat yang lebih tinggi</li>
-                  <li>Siapkan tas siaga berisi dokumen penting dan kebutuhan darurat</li>
-                  <li>Tentukan titik kumpul keluarga jika terpisah</li>
-                  <li>Simpan nomor kontak darurat desa dan instansi terkait</li>
-                  <li>Ikuti simulasi evakuasi yang diadakan pemerintah desa</li>
-                </ul>
-              </CardContent>
-            </Card>
+                </h3>
+              </div>
+              <p style={{ color: '#6b7280', marginBottom: '1rem', lineHeight: '1.6', fontSize: '0.9375rem' }}>
+                Siapkan rencana evakuasi untuk keluarga dan komunitas:
+              </p>
+              <ul style={{ color: '#6b7280', paddingLeft: '1.25rem', lineHeight: '1.6', fontSize: '0.9375rem', margin: 0 }}>
+                <li style={{ marginBottom: '0.5rem' }}>Kenali jalur evakuasi teraman menuju tempat yang lebih tinggi</li>
+                <li style={{ marginBottom: '0.5rem' }}>Siapkan tas siaga berisi dokumen penting dan kebutuhan darurat</li>
+                <li style={{ marginBottom: '0.5rem' }}>Tentukan titik kumpul keluarga jika terpisah</li>
+                <li style={{ marginBottom: '0.5rem' }}>Simpan nomor kontak darurat desa dan instansi terkait</li>
+                <li>Ikuti simulasi evakuasi yang diadakan pemerintah desa</li>
+              </ul>
+            </div>
 
-            <Card className="bg-card border-border">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
-                    <span className="text-primary font-bold">5</span>
-                  </div>
+            {/* Guide 5 */}
+            <div style={{
+              backgroundColor: 'white',
+              borderRadius: '0.75rem',
+              padding: '2rem',
+              border: '1px solid #e5e7eb',
+              boxShadow: '0 1px 3px rgba(0,0,0,0.05)'
+            }}>
+              <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem', marginBottom: '1rem' }}>
+                <div style={{
+                  width: '36px',
+                  height: '36px',
+                  backgroundColor: 'rgba(179, 23, 65, 0.1)',
+                  borderRadius: '50%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  flexShrink: 0
+                }}>
+                  <span style={{ color: '#B31741', fontWeight: 'bold', fontSize: '1.125rem' }}>5</span>
+                </div>
+                <h3 style={{ fontSize: '1.125rem', fontWeight: '600', color: '#1f2937', margin: 0 }}>
                   Koordinasi dengan Pemerintah Desa
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground mb-4">
-                  Jalin koordinasi yang baik dengan pemerintah Desa Aribaya:
-                </p>
-                <ul className="list-disc pl-5 space-y-2 text-muted-foreground">
-                  <li>Laporkan segera jika menemukan tanda-tanda bahaya longsor</li>
-                  <li>Ikuti sosialisasi dan pelatihan mitigasi bencana</li>
-                  <li>Patuhi himbauan dan arahan dari petugas</li>
-                  <li>Berpartisipasi dalam kegiatan gotong royong pencegahan bencana</li>
-                  <li>Gunakan sistem Geosafe untuk mendapat informasi terkini</li>
-                </ul>
-              </CardContent>
-            </Card>
+                </h3>
+              </div>
+              <p style={{ color: '#6b7280', marginBottom: '1rem', lineHeight: '1.6', fontSize: '0.9375rem' }}>
+                Jalin koordinasi yang baik dengan pemerintah Desa Aribaya:
+              </p>
+              <ul style={{ color: '#6b7280', paddingLeft: '1.25rem', lineHeight: '1.6', fontSize: '0.9375rem', margin: 0 }}>
+                <li style={{ marginBottom: '0.5rem' }}>Laporkan segera jika menemukan tanda-tanda bahaya longsor</li>
+                <li style={{ marginBottom: '0.5rem' }}>Ikuti sosialisasi dan pelatihan mitigasi bencana</li>
+                <li style={{ marginBottom: '0.5rem' }}>Patuhi himbauan dan arahan dari petugas</li>
+                <li style={{ marginBottom: '0.5rem' }}>Berpartisipasi dalam kegiatan gotong royong pencegahan bencana</li>
+                <li>Gunakan sistem Talenta Lestari untuk mendapat informasi terkini</li>
+              </ul>
+            </div>
           </div>
         </div>
       </section>

@@ -14,8 +14,8 @@ class AdminUserSeeder extends Seeder
     public function run(): void
     {
         User::create([
-            'name' => 'Admin Geosafe',
-            'email' => 'admin@geosafe.aribaya.id',
+            'name' => 'Admin Talenta Lestari',
+            'email' => 'admin@talentalestari.aribaya.id',
             'password' => Hash::make('admin123'),
             'role' => 'admin',
             'email_verified_at' => now(),

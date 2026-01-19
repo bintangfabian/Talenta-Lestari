@@ -16,12 +16,12 @@ use App\Http\Controllers\Auth\AdminAuthController;
 |
 */
 
-Route::middleware('api')->prefix('v1')->group(function () {
+Route::middleware(['api', 'web'])->prefix('v1')->group(function () {
     // Admin Authentication Routes
     Route::prefix('admin')->group(function () {
         Route::post('/login', [AdminAuthController::class, 'login']);
-        Route::post('/logout', [AdminAuthController::class, 'logout'])->middleware('auth:sanctum');
-        Route::get('/user', [AdminAuthController::class, 'user'])->middleware('auth:sanctum');
+        Route::post('/logout', [AdminAuthController::class, 'logout'])->middleware('auth');
+        Route::get('/user', [AdminAuthController::class, 'user'])->middleware('auth');
     });
 
     // Sensor Data Routes

@@ -1,32 +1,17 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { 
-  Users, 
-  Activity, 
-  Settings, 
-  LogOut, 
-  Shield, 
-  Database,
-  AlertTriangle,
-  CheckCircle
-} from 'lucide-react';
-import { useToast } from '@/hooks/use-toast';
+import { Shield, CheckCircle2, BarChart3, Database, AlertTriangle, TrendingUp, Users, Settings, LogOut, Loader2 } from 'lucide-react';
 
 interface AdminUser {
-  id: number;
   name: string;
-  email: string;
   role: string;
+  email?: string;
 }
 
-const AdminDashboard = () => {
+const AdminDashboard: React.FC = () => {
   const [user, setUser] = useState<AdminUser | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const navigate = useNavigate();
-  const { toast } = useToast();
 
   useEffect(() => {
     // Check if user is logged in
@@ -52,21 +37,24 @@ const AdminDashboard = () => {
       console.error('Logout error:', err);
     } finally {
       localStorage.removeItem('admin_user');
-      toast({
-        title: 'Logout Berhasil',
-        description: 'Anda telah keluar dari sistem.',
-      });
+      alert('Logout Berhasil! Anda telah keluar dari sistem.');
       navigate('/');
     }
   };
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="text-center">
-          <Activity className="h-8 w-8 animate-spin text-primary mx-auto mb-4" />
-          <p className="text-muted-foreground">Memuat dashboard...</p>
-        </div>
+      <div style={{
+        minHeight: '100vh',
+        backgroundColor: '#f8f9fa',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+      }}>
+          <div style={{ textAlign: 'center' }}>
+            <Loader2 className="h-8 w-8 animate-spin" style={{ margin: '0 auto 1rem', color: '#6b7280' }} />
+            <p style={{ color: '#6b7280' }}>Memuat dashboard...</p>
+          </div>
       </div>
     );
   }
@@ -75,186 +63,278 @@ const AdminDashboard = () => {
     return null;
   }
 
+  const cardStyle = {
+    backgroundColor: 'white',
+    borderRadius: '0.75rem',
+    padding: '1.5rem',
+    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+    border: '1px solid #e2e8f0'
+  };
+
+  const statCardStyle = {
+    ...cardStyle,
+    textAlign: 'center'
+  };
+
+  const buttonStyle = {
+    padding: '0.75rem 1.5rem',
+    backgroundColor: '#B31741',
+    color: 'white',
+    border: 'none',
+    borderRadius: '0.375rem',
+    fontSize: '0.875rem',
+    fontWeight: '600',
+    cursor: 'pointer',
+    textDecoration: 'none',
+    display: 'inline-block'
+  };
+
+  const outlineButtonStyle = {
+    ...buttonStyle,
+    backgroundColor: 'transparent',
+    color: '#B31741',
+    border: '1px solid #B31741'
+  };
+
   return (
-    <div className="min-h-screen bg-background">
+    <div style={{ minHeight: '100vh', backgroundColor: '#f8f9fa' }}>
       {/* Header */}
-      <header className="bg-card border-b border-border">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center space-x-3">
-              <Shield className="h-8 w-8 text-primary" />
-              <div>
-                <h1 className="text-xl font-bold text-foreground">Admin Dashboard</h1>
-                <p className="text-sm text-muted-foreground">Geosafe Aribaya</p>
-              </div>
+      <header style={{
+        backgroundColor: 'white',
+        borderBottom: '1px solid #e2e8f0',
+        padding: '1rem 0'
+      }}>
+        <div style={{
+          maxWidth: '1200px',
+          margin: '0 auto',
+          padding: '0 1rem',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center'
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+            <Shield className="h-8 w-8" style={{ color: '#B31741' }} />
+            <div>
+              <h1 style={{ fontSize: '1.25rem', fontWeight: 'bold', color: '#1f2937', margin: 0 }}>
+                Admin Dashboard
+              </h1>
+              <p style={{ fontSize: '0.875rem', color: '#6b7280', margin: 0 }}>
+                Talenta Lestari Aribaya
+              </p>
             </div>
-            
-            <div className="flex items-center space-x-4">
-              <div className="text-right">
-                <p className="text-sm font-medium text-foreground">{user.name}</p>
-                <Badge variant="secondary" className="text-xs">
-                  {user.role}
-                </Badge>
-              </div>
-              <Button 
-                variant="outline" 
-                size="sm" 
-                onClick={handleLogout}
-                className="flex items-center gap-2"
-              >
-                <LogOut className="h-4 w-4" />
-                Logout
-              </Button>
+          </div>
+          
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+            <div style={{ textAlign: 'right' }}>
+              <p style={{ fontSize: '0.875rem', fontWeight: '500', color: '#1f2937', margin: 0 }}>
+                {user.name}
+              </p>
+              <span style={{
+                fontSize: '0.75rem',
+                backgroundColor: '#f3f4f6',
+                color: '#374151',
+                padding: '0.25rem 0.5rem',
+                borderRadius: '0.25rem'
+              }}>
+                {user.role}
+              </span>
             </div>
+            <button 
+              onClick={handleLogout}
+              style={{
+                ...outlineButtonStyle,
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.5rem',
+                transition: 'all 0.2s'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = '#B31741';
+                e.currentTarget.style.color = 'white';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = 'transparent';
+                e.currentTarget.style.color = '#B31741';
+              }}
+            >
+              <LogOut className="h-4 w-4" style={{ marginRight: '0.25rem' }} /> Logout
+            </button>
           </div>
         </div>
       </header>
 
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="mb-8">
-          <h2 className="text-2xl font-bold text-foreground mb-2">
+      <main style={{ maxWidth: '1200px', margin: '0 auto', padding: '2rem 1rem' }}>
+        <div style={{ marginBottom: '2rem' }}>
+          <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#1f2937', marginBottom: '0.5rem' }}>
             Selamat Datang, {user.name}
           </h2>
-          <p className="text-muted-foreground">
+          <p style={{ color: '#6b7280' }}>
             Panel administrasi sistem monitoring tanah longsor Desa Aribaya, Banjarnegara
           </p>
         </div>
 
         {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <Card className="bg-card border-border">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Status Sistem</CardTitle>
-              <CheckCircle className="h-4 w-4 text-status-aman" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold text-status-aman">Aktif</div>
-              <p className="text-xs text-muted-foreground">
-                Semua sensor berfungsi normal
-              </p>
-            </CardContent>
-          </Card>
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+          gap: '1.5rem',
+          marginBottom: '2rem'
+        }}>
+          <div style={statCardStyle}>
+            <CheckCircle2 className="h-8 w-8" style={{ margin: '0 auto 0.5rem', color: '#059669' }} />
+            <div style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#059669', marginBottom: '0.25rem' }}>
+              Aktif
+            </div>
+            <p style={{ fontSize: '0.875rem', color: '#6b7280', margin: 0 }}>
+              Status Sistem
+            </p>
+          </div>
 
-          <Card className="bg-card border-border">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Sensor Aktif</CardTitle>
-              <Activity className="h-4 w-4 text-primary" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">3</div>
-              <p className="text-xs text-muted-foreground">
-                Kelembaban, Hujan, Pergeseran
-              </p>
-            </CardContent>
-          </Card>
+          <div style={statCardStyle}>
+            <BarChart3 className="h-8 w-8" style={{ margin: '0 auto 0.5rem', color: '#1f2937' }} />
+            <div style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#1f2937', marginBottom: '0.25rem' }}>
+              3
+            </div>
+            <p style={{ fontSize: '0.875rem', color: '#6b7280', margin: 0 }}>
+              Sensor Aktif
+            </p>
+          </div>
 
-          <Card className="bg-card border-border">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Data Hari Ini</CardTitle>
-              <Database className="h-4 w-4 text-primary" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">1,440</div>
-              <p className="text-xs text-muted-foreground">
-                Record data sensor
-              </p>
-            </CardContent>
-          </Card>
+          <div style={statCardStyle}>
+            <Database className="h-8 w-8" style={{ margin: '0 auto 0.5rem', color: '#1f2937' }} />
+            <div style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#1f2937', marginBottom: '0.25rem' }}>
+              1,440
+            </div>
+            <p style={{ fontSize: '0.875rem', color: '#6b7280', margin: 0 }}>
+              Data Hari Ini
+            </p>
+          </div>
 
-          <Card className="bg-card border-border">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Alert Aktif</CardTitle>
-              <AlertTriangle className="h-4 w-4 text-status-waspada" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">0</div>
-              <p className="text-xs text-muted-foreground">
-                Tidak ada peringatan
-              </p>
-            </CardContent>
-          </Card>
+          <div style={statCardStyle}>
+            <AlertTriangle className="h-8 w-8" style={{ margin: '0 auto 0.5rem', color: '#1f2937' }} />
+            <div style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#1f2937', marginBottom: '0.25rem' }}>
+              0
+            </div>
+            <p style={{ fontSize: '0.875rem', color: '#6b7280', margin: 0 }}>
+              Alert Aktif
+            </p>
+          </div>
         </div>
 
         {/* Quick Actions */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <Card className="bg-card border-border">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Activity className="h-5 w-5 text-primary" />
-                Monitoring Real-time
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-muted-foreground mb-4">
-                Pantau data sensor secara real-time dan status sistem monitoring.
-              </p>
-              <Button 
-                onClick={() => navigate('/monitoring')}
-                className="w-full"
-              >
-                Buka Monitoring
-              </Button>
-            </CardContent>
-          </Card>
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+          gap: '1.5rem'
+        }}>
+          <div style={cardStyle}>
+            <h3 style={{ 
+              fontSize: '1.125rem', 
+              fontWeight: '600', 
+              color: '#1f2937',
+              marginBottom: '0.5rem',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.5rem'
+            }}>
+              <TrendingUp className="h-5 w-5" /> Monitoring Real-time
+            </h3>
+            <p style={{ color: '#6b7280', marginBottom: '1rem', fontSize: '0.875rem' }}>
+              Pantau data sensor secara real-time dan status sistem monitoring.
+            </p>
+            <button 
+              onClick={() => navigate('/monitoring')}
+              style={buttonStyle}
+            >
+              Buka Monitoring
+            </button>
+          </div>
 
-          <Card className="bg-card border-border">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Users className="h-5 w-5 text-primary" />
-                Manajemen User
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-muted-foreground mb-4">
-                Kelola akun administrator dan hak akses sistem.
-              </p>
-              <Button variant="outline" className="w-full" disabled>
-                Segera Hadir
-              </Button>
-            </CardContent>
-          </Card>
+          <div style={cardStyle}>
+            <h3 style={{ 
+              fontSize: '1.125rem', 
+              fontWeight: '600', 
+              color: '#1f2937',
+              marginBottom: '0.5rem',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.5rem'
+            }}>
+              <Users className="h-5 w-5" /> Manajemen User
+            </h3>
+            <p style={{ color: '#6b7280', marginBottom: '1rem', fontSize: '0.875rem' }}>
+              Kelola akun administrator dan hak akses sistem.
+            </p>
+            <button 
+              style={{...outlineButtonStyle, cursor: 'not-allowed', opacity: 0.6}}
+              disabled
+            >
+              Segera Hadir
+            </button>
+          </div>
 
-          <Card className="bg-card border-border">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Settings className="h-5 w-5 text-primary" />
-                Konfigurasi Sistem
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-muted-foreground mb-4">
-                Atur parameter sensor, threshold alert, dan konfigurasi sistem.
-              </p>
-              <Button variant="outline" className="w-full" disabled>
-                Segera Hadir
-              </Button>
-            </CardContent>
-          </Card>
+          <div style={cardStyle}>
+            <h3 style={{ 
+              fontSize: '1.125rem', 
+              fontWeight: '600', 
+              color: '#1f2937',
+              marginBottom: '0.5rem',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.5rem'
+            }}>
+              <Settings className="h-5 w-5" /> Konfigurasi Sistem
+            </h3>
+            <p style={{ color: '#6b7280', marginBottom: '1rem', fontSize: '0.875rem' }}>
+              Atur parameter sensor, threshold alert, dan konfigurasi sistem.
+            </p>
+            <button 
+              style={{...outlineButtonStyle, cursor: 'not-allowed', opacity: 0.6}}
+              disabled
+            >
+              Segera Hadir
+            </button>
+          </div>
         </div>
 
         {/* System Info */}
-        <Card className="mt-8 bg-card border-border">
-          <CardHeader>
-            <CardTitle>Informasi Sistem</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
-              <div>
-                <p className="font-medium text-foreground">Lokasi Monitoring</p>
-                <p className="text-muted-foreground">Desa Aribaya, Banjarnegara</p>
-              </div>
-              <div>
-                <p className="font-medium text-foreground">Versi Sistem</p>
-                <p className="text-muted-foreground">Geosafe v2.0</p>
-              </div>
-              <div>
-                <p className="font-medium text-foreground">Last Update</p>
-                <p className="text-muted-foreground">{new Date().toLocaleString('id-ID')}</p>
-              </div>
+        <div style={{...cardStyle, marginTop: '2rem'}}>
+          <h3 style={{ fontSize: '1.125rem', fontWeight: '600', color: '#1f2937', marginBottom: '1rem' }}>
+            Informasi Sistem
+          </h3>
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+            gap: '1rem',
+            fontSize: '0.875rem'
+          }}>
+            <div>
+              <p style={{ fontWeight: '500', color: '#1f2937', margin: '0 0 0.25rem 0' }}>
+                Lokasi Monitoring
+              </p>
+              <p style={{ color: '#6b7280', margin: 0 }}>
+                Desa Aribaya, Banjarnegara
+              </p>
             </div>
-          </CardContent>
-        </Card>
+            <div>
+              <p style={{ fontWeight: '500', color: '#1f2937', margin: '0 0 0.25rem 0' }}>
+                Versi Sistem
+              </p>
+              <p style={{ color: '#6b7280', margin: 0 }}>
+                Talenta Lestari v2.0
+              </p>
+            </div>
+            <div>
+              <p style={{ fontWeight: '500', color: '#1f2937', margin: '0 0 0.25rem 0' }}>
+                Last Update
+              </p>
+              <p style={{ color: '#6b7280', margin: 0 }}>
+                {new Date().toLocaleString('id-ID')}
+              </p>
+            </div>
+          </div>
+        </div>
       </main>
     </div>
   );
