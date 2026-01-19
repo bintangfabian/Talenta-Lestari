@@ -19,11 +19,14 @@ const Footer: React.FC = () => {
           {/* Brand Section */}
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="#B31741" opacity="0.3"/>
-                <path d="M2 17L12 22L22 17" stroke="#B31741" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                <path d="M2 12L12 17L22 12" stroke="#B31741" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
+              <img 
+                src="/images/talentalestari.svg" 
+                alt="Talenta Lestari Logo" 
+                style={{ 
+                  width: '32px', 
+                  height: '32px'
+                }} 
+              />
               <span style={{ fontSize: '1.25rem', fontWeight: 'bold', color: '#1f2937' }}>
                 Talenta Lestari
               </span>

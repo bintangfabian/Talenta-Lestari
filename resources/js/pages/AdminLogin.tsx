@@ -94,6 +94,7 @@ const AdminLogin: React.FC = () => {
               fontWeight: '600',
               color: '#1f2937',
               display: 'flex',
+              justifyContent: 'center',
               alignItems: 'center',
               gap: '0.5rem',
               margin: 0

@@ -34,7 +34,7 @@ const StatusIndicator = ({ status }: StatusIndicatorProps) => {
   return (
     <Card className="bg-sensor-bg border-border">
       <CardHeader className="pb-3">
-        <CardTitle className="text-sm font-medium text-muted-foreground">
+        <CardTitle className="text-sm font-medium text-muted-foreground text-center">
           Status Monitoring
         </CardTitle>
       </CardHeader>
@@ -45,33 +45,29 @@ const StatusIndicator = ({ status }: StatusIndicatorProps) => {
           getStatusStyles()
         )}>
           <div className="flex items-center space-x-3">
-            {getIcon()}
             <div>
-              <div className="text-xl font-bold">
+              <div className="text-xl font-bold py-3">
                 {status.level.toUpperCase()}
-              </div>
-              <div className="text-sm opacity-90">
-                Status Saat Ini
               </div>
             </div>
           </div>
         </div>
         
-        <div className="text-center text-sm text-muted-foreground">
+        {/* <div className="text-center text-sm text-muted-foreground">
           {status.description}
-        </div>
+        </div> */}
         
-        <div className="grid grid-cols-3 gap-2 text-xs">
+        <div className="grid grid-cols-3 gap-5 text-xs pt-5">
           <div className="text-center">
-            <div className="w-3 h-3 bg-status-aman rounded-full mx-auto mb-1" />
+            <div className="w-4 h-4 bg-status-aman rounded-full mx-auto mb-1" />
             <div>Aman</div>
           </div>
           <div className="text-center">
-            <div className="w-3 h-3 bg-status-waspada rounded-full mx-auto mb-1" />
+            <div className="w-4 h-4 bg-status-waspada rounded-full mx-auto mb-1" />
             <div>Waspada</div>
           </div>
           <div className="text-center">
-            <div className="w-3 h-3 bg-status-bahaya rounded-full mx-auto mb-1" />
+            <div className="w-4 h-4 bg-status-bahaya rounded-full mx-auto mb-1" />
             <div>Bahaya</div>
           </div>
         </div>

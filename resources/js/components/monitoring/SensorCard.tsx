@@ -56,21 +56,21 @@ const SensorCard = ({
 
   return (
     <Card className="bg-sensor-bg border-border relative overflow-hidden">
-      <div className={cn("absolute top-0 left-0 w-full h-1", getStatusColor())} />
+      <div className={cn("absolute top-0 left-0 w-full h-1.5", getStatusColor())} />
       
-      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-        <div className="flex items-center space-x-2">
-          <CardTitle className="text-sm font-medium text-muted-foreground">
+      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3 pt-4">
+        <div className="flex items-center space-x-2.5">
+          <CardTitle className="text-base font-semibold text-foreground">
             {title}
           </CardTitle>
           {sensorInfo && (
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <Info className="h-3 w-3 text-muted-foreground cursor-help" />
+                  <Info className="h-4 w-4 text-muted-foreground cursor-help hover:text-foreground transition-colors" />
                 </TooltipTrigger>
                 <TooltipContent>
-                  <p className="text-xs max-w-xs">{sensorInfo}</p>
+                  <p className="text-sm max-w-xs">{sensorInfo}</p>
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>
@@ -81,39 +81,39 @@ const SensorCard = ({
         </div>
       </CardHeader>
       
-      <CardContent>
-        <div className="space-y-2">
+      <CardContent className="pt-2 pb-5">
+        <div className="space-y-3">
           {/* Main Value */}
-          <div className="flex items-baseline space-x-2">
-            <div className="text-2xl font-bold text-foreground">
+          <div className="flex items-baseline space-x-3">
+            <div className="text-5xl font-bold text-foreground tracking-tight">
               {value.toFixed(1)}
             </div>
-            <div className="text-sm text-muted-foreground">
+            <div className="text-xl font-medium text-muted-foreground">
               {unit}
             </div>
           </div>
           
           {/* ADC Value Display */}
           {adcValue !== undefined && (
-            <div className="flex items-center space-x-2 text-xs text-muted-foreground">
-              <span className="font-mono">ADC: {Math.round(adcValue)}</span>
-              <span className="text-muted-foreground/60">/ 1023</span>
+            <div className="flex items-center space-x-2 text-sm text-muted-foreground pt-1">
+              <span className="font-mono font-medium">ADC: {Math.round(adcValue)}</span>
+              <span className="text-muted-foreground/70">/ 1023</span>
             </div>
           )}
           
           {/* Trend Indicator */}
           {trendValue !== 0 && (
-            <div className="flex items-center mt-1">
+            <div className="flex items-center pt-2">
               <Badge
                 variant="secondary"
                 className={cn(
-                  "flex items-center space-x-1",
+                  "flex items-center space-x-1.5 px-2.5 py-1",
                   trend === 'up' ? 'text-red-400' : 
                   trend === 'down' ? 'text-green-400' : 'text-muted-foreground'
                 )}
               >
                 {getTrendIcon()}
-                <span className="text-xs">
+                <span className="text-sm font-medium">
                   {Math.abs(trendValue).toFixed(1)}%
                 </span>
               </Badge>
